@@ -1572,6 +1572,7 @@ def getVotes(request, date_=None):
     * @apiSuccess {Object[]} / List of vote objects
     * @apiSuccess {date} /.start_time Vote's start time in UTF-8 datetime as string.
     * @apiSuccess {String} /.motion Motion name - what is the vote about.
+    * @apiSuccess {String} /.motion Id of the Motion.
     * @apiSuccess {Integer} /.session Session's at which the vote took place parladata id.
     * @apiSuccess {date} /.start_time Vote's end time in UTF-8 datetime as string. Currently return null.
     * @apiSuccess {Integer} /.organization_id Parladata id of the organization in which the vote took place.
@@ -1596,7 +1597,7 @@ def getVotes(request, date_=None):
             "motion": "Proceduralni predlog za prekinitev 1. to\u010dke dnevnega reda",
             "session": 6684,
             "end_time": null,
-            "party": 95,
+            "organization_id": 95,
             "id": 6512,
             "result": "-"
         }, {
@@ -1604,7 +1605,7 @@ def getVotes(request, date_=None):
             "motion": "Sklep o imenovanju predsednika in podpredsednika Mandatno-volilne komisije - Sklep",
             "session": 6684,
             "end_time": null,
-            "party": 95,
+            "organization_id": 95,
             "id": 6511,
             "result": "-"
         }, {
@@ -1612,7 +1613,7 @@ def getVotes(request, date_=None):
             "motion": "Poro\u010dilo o izidu pred\u010dasnih volitev v Dr\u017eavni zbor Republike Slovenije - Glasovanje o predlogu sklepa",
             "session": 6684,
             "end_time": null,
-            "party": 95,
+            "organization_id": 95,
             "id": 6510,
             "result": "-"
         }
@@ -1628,6 +1629,7 @@ def getVotes(request, date_=None):
     for vote in votes:
         data.append({'id': vote.id,
                      'motion': vote.motion.text,
+                     'motion_id': vote.motion.id,
                      'organization_id': vote.organization.id,
                      'session': vote.session.id,
                      'start_time': vote.start_time,
@@ -2050,6 +2052,7 @@ def getBallotsOfMotion(request, motion_id):
     * @apiSuccess {String} /.Acronym PG acronym for MP's PG.
     * @apiSuccess {Integer} /.pg_id Parladata id of the PG the MP that submitted the ballot belongs to.
     * @apiSuccess {Integer} /.mo_id Parladata id of the motion this ballot belongs to.
+    * @apiSuccess {Integer} /.mp_id Parladata id of the MP that submitted the ballot.
     * @apiSuccess {String} /.option The option on the ballot. One of "za", "proti", "kvorum", "ni").
       
 
